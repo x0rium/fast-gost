@@ -87,4 +87,4 @@ echo -e "I ${RED} Restarting gost service ${NC} "
 service gost restart
 
 IP=$(hostname -I | cut -d' ' -f1)
-echo -e "${RED}Finished! ${NC} \n IP:$IP \n Username: $USER  \n Password: $PASS"
+echo -e "${RED}Finished! ${NC} \n IP:$IP \n PORT: 51080 \n Username: $USER \n Password: $PASS"
