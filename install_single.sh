@@ -87,4 +87,4 @@ echo -e "I ${RED} Restarting gost service ${NC} "
 service gost restart
 
 
-echo -e "Finished! \n Username: $USER  \n Password: $PASS"
+echo -e "${RED}Finished! ${NC} \n Username: $USER  \n Password: $PASS"
