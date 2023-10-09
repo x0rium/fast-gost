@@ -86,5 +86,5 @@ systemctl start gost
 echo -e "I ${RED} Restarting gost service ${NC} "
 service gost restart
 
-
-echo -e "${RED}Finished! ${NC} \n Username: $USER  \n Password: $PASS"
+IP=$(hostname -I | cut -d' ' -f1)
+echo -e "${RED}Finished! ${NC} \n IP:$IP \n Username: $USER  \n Password: $PASS"
