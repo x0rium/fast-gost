@@ -23,23 +23,6 @@ echo -e "I ${RED} installing utils ${NC} "
 apt update
 apt install -y curl net-tools
 
-echo -e "I ${RED} Add service ${NC} "
-cat <<EOF | sudo tee /etc/systemd/system/gost.service
-[Unit]
-Description=GO Simple Tunnel
-After=network.target
-Wants=network.target
-
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/gost
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl enable gost
-systemctl start gost
 
 
 echo -e "I ${RED} Creating GOST config template ${NC} "
@@ -80,6 +63,25 @@ log:
     localTime: false
     compress: false
 EOF
+
+echo -e "I ${RED} Add gost service to autoload ${NC} "
+cat <<EOF | sudo tee /etc/systemd/system/gost.service
+[Unit]
+Description=GO Simple Tunnel
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gost
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable gost
+systemctl start gost
+
 
 echo -e "I ${RED} Restarting gost service ${NC} "
 service gost restart
