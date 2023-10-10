@@ -6,6 +6,8 @@ if [[ "$EUID" -ne '0' ]]; then
     echo "$(tput setaf 1)Error: You must run this script as root!$(tput sgr0)"
     exit 1
 fi
+read _ _ gateway _ < <(ip route list match 0/0)
+CIP=$(hostname -I | cut -d' ' -f1)
 
 echo -e "I ${RED} Gost installing ${NC} "
 bash <(curl -fsSL https://github.com/go-gost/gost/raw/master/install.sh) --install
@@ -40,8 +42,8 @@ mkdir /etc/gost
 cat <<EOF | sudo tee /etc/gost/gost.yaml
 services:
 - name: service-1
-  addr: "2.2.2.129:51080"
-  interface: "2.2.2.129"
+  addr: "$CIP:51080"
+  interface: "$CIP"
   resolver: resolver-0
   handler:
     type: socks5
@@ -140,16 +142,16 @@ network:
       dhcp4: no
       dhcp6: no
       addresses:
-        - 2.2.2.129/24
+        - $CIP/24
       routes:
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           metric: 101
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           table: 101
       routing-policy:
-        - from: 2.2.2.129
+        - from: $CIP
           table: 101
       nameservers:
         addresses:
@@ -161,10 +163,10 @@ network:
         - 2.2.2.137/24
       routes:
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           metric: 102
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           table: 102
       routing-policy:
         - from: 2.2.2.137
@@ -178,10 +180,10 @@ network:
         - 2.2.2.141/24
       routes:
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           metric: 103
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           table: 103
       routing-policy:
         - from: 2.2.2.141
@@ -195,10 +197,10 @@ network:
         - 2.2.2.143/24
       routes:
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           metric: 104
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           table: 104
       routing-policy:
         - from: 2.2.2.143
@@ -212,10 +214,10 @@ network:
         - 2.2.2.151/24
       routes:
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           metric: 105
         - to: 0.0.0.0/0
-          via: 2.2.2.1
+          via: $gateway
           table: 105
       routing-policy:
         - from: 2.2.2.151
