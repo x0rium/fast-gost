@@ -13,6 +13,11 @@ echo -e "I ${RED} installing utils ${NC} "
 apt update
 apt install -y curl net-tools htop
 
+echo -e "I ${RED} Enable forwarding ${NC} "
+
+sysctl -w net.ipv4.ip_forward=1
+sysctl -p
+
 echo -e "I ${RED} Replace netplan 99 config ${NC} "
 
 cat <<EOF | sudo tee /etc/netplan/99-netcfg-vmware.yaml
