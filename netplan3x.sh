@@ -11,7 +11,7 @@ CIP=$(hostname -I | cut -d' ' -f1)
 
 echo -e "I ${RED} installing utils ${NC} "
 apt update
-apt install -y curl net-tools
+apt install -y curl net-tools htop
 
 echo -e "I ${RED} Replace netplan 99 config ${NC} "
 
