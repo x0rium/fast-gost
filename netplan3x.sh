@@ -114,6 +114,7 @@ network:
           - 8.8.8.8
 EOF
 
+chmod 600 /etc/netplan/99-netcfg-vmware.yaml
 echo -e "I ${RED} Finish! Current routes: ${NC} "
 ip route list
 
