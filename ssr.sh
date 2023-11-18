@@ -70,8 +70,3 @@ systemctl daemon-reload
 systemctl enable ssserver
 systemctl restart ssserver
 systemctl status ssserver
-
-# OPTIONAL:
-# systemctl disable --now ufw
-# systemctl disable --now firewalld
-# systemctl mask --now firewalld
